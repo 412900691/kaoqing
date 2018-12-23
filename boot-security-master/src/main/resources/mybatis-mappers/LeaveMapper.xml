@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.security.server.dao.LeaveDao">
+
+	<sql id="where">
+		<where>
+			<if test="params.id != null and params.id != ''">
+				and id = #{params.id} 
+			</if>
+			<if test="params.codeNumber != null and params.codeNumber != ''">
+				and codeNumber = #{params.codeNumber} 
+			</if>
+			<if test="params.currTime != null and params.currTime != ''">
+				and currTime = #{params.currTime} 
+			</if>
+			<if test="params.leaveTimeStart != null and params.leaveTimeStart != ''">
+				and leaveTimeStart = #{params.leaveTimeStart} 
+			</if>
+			<if test="params.leaveTimeEnd != null and params.leaveTimeEnd != ''">
+				and leaveTimeEnd = #{params.leaveTimeEnd} 
+			</if>
+			<if test="params.leaveType != null and params.leaveType != ''">
+				and leaveType = #{params.leaveType} 
+			</if>
+			<if test="params.reason != null and params.reason != ''">
+				and reason = #{params.reason} 
+			</if>
+			<if test="params.creatTime != null and params.creatTime != ''">
+				and creatTime = #{params.creatTime} 
+			</if>
+			<if test="params.motify != null and params.motify != ''">
+				and motify = #{params.motify} 
+			</if>
+			<if test="params.numberErrorDataBars != null and params.numberErrorDataBars != ''">
+				and numberErrorDataBars = #{params.numberErrorDataBars} 
+			</if>
+			<if test="params.isError != null and params.isError != ''">
+				and isError = #{params.isError} 
+			</if>
+		
+		</where>
+	</sql>
+
+	<select id="count" resultType="int">
+		select count(1) from aleave t
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultType="Leave">
+		select * from aleave t
+		<include refid="where" />
+		${params.orderBy}
+		limit #{offset}, #{limit}
+	</select>
+
+	<update id="update">
+		update aleave t
+		<set>
+			<if test="codeNumber != null">
+				codeNumber = #{codeNumber}, 
+			</if>
+			<if test="currTime != null">
+				currTime = #{currTime}, 
+			</if>
+			<if test="leaveTimeStart != null">
+				leaveTimeStart = #{leaveTimeStart}, 
+			</if>
+			<if test="leaveTimeEnd != null">
+				leaveTimeEnd = #{leaveTimeEnd}, 
+			</if>
+			<if test="leaveType != null">
+				leaveType = #{leaveType}, 
+			</if>
+			<if test="reason != null">
+				reason = #{reason}, 
+			</if>
+			<if test="creatTime != null">
+				creatTime = #{creatTime}, 
+			</if>
+			<if test="motify != null">
+				motify = #{motify}, 
+			</if>
+			<if test="numberErrorDataBars != null">
+				numberErrorDataBars = #{numberErrorDataBars}, 
+			</if>
+			<if test="isError != null">
+				isError = #{isError}, 
+			</if>
+
+		</set>
+
+		where t.id = #{id}
+	</update>
+
+</mapper>
